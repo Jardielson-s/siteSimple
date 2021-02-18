@@ -1,13 +1,18 @@
 const  { Client }  = require('../../models');
+require('dotenv').config();
 
-
-
+const bcrypt = require('bcrypt');
+const CreateToken = require('./Jwt');
+const { Op } = require('sequelize');
 
 class ControlleRoutes{
 
     async  singUp(req,res) {
         
         const { name, email, password, occupation, address } = req.body;
+
+        const hash = bcrypt.hashSync(password,10);
+    
 
         try{
 
@@ -18,14 +23,18 @@ class ControlleRoutes{
             const cl = await Client.create({
                name, 
                email,
-               password,
+               password: hash,
                occupation,
                address
            })
            .then((cl)=>{
-               return res.status(201).json({message: cl });
+
+              const id = cl.id;
+              const token = CreateToken.create_token(id);
+             
+              return res.status(201).json({cl ,token});
            })
-           .catch((err)=>{res.status(401).json({message:err});});
+           .catch((err)=>{return res.status(401).json({message:err});});
         }catch(err){
               return res.status(401).json({message:err});
         }
@@ -38,12 +47,39 @@ class ControlleRoutes{
             const clientEmail = await Client.findOne({where:{email}});
             
             if(!clientEmail) return res.status(404).json({message:"email invalid"});
-            
-            const clientPassword =  await Client.findOne({where: {password}});
-            
-            if(!clientPassword) return res.status(404).json({message:"email invalid"});
 
-            return res.status(200).json({clientPassword});
+            const passCompare = bcrypt.compareSync(password,clientEmail.password);
+        
+            if(passCompare === false)
+               return res.status(404).json({message:"password invalid"});
+            
+    
+           const token = CreateToken.create_token(clientEmail.id);
+            return res.status(200).json({clientEmail, token});
+          }catch(err){
+              return res.status(500).json({message: "indisponible service"});
+          }
+    }
+
+    async get(req,res){
+
+        const { email, password} = req.body;
+
+    
+          
+          try{
+            const clientEmail = await Client.findOne({where:{email}});
+            
+            if(!clientEmail) return res.status(404).json({message:"email invalid"});
+
+            const passCompare = bcrypt.compareSync(password,clientEmail.password);
+        
+            if(passCompare === false)
+               return res.status(404).json({message:"password invalid"});
+            
+    
+           const token = CreateToken.create_token(clientEmail.id);
+            return res.status(200).json({clientEmail, token});
           }catch(err){
               return res.status(500).json({message: "indisponible service"});
           }
@@ -57,7 +93,57 @@ class ControlleRoutes{
             .catch((err)=>{return res.status(401).json({message:err});})
 
         }catch(err){
-            return res.json({message:err});
+            return res.status(500).json({message:err});
+        }
+    }
+
+    async get(req,res){
+
+        const { name } = req.query;
+      
+        try{
+          const foundName = await Client.findAll({where:{
+              [Op.or]:[{ name }]
+          }})
+          .then(function(foundName){
+             if(!foundName)
+                return res.status(400).json({message:'user not found'});
+            
+             return res.status(200).json(foundName);
+          })
+          .catch((err)=>{
+              return res.status(400).json(err);
+          })
+        }
+        catch(err){
+            return res.status(500).json({message:"don'n connect with database"});
+        }
+    }
+
+    async destroy(req,res){
+       
+        try{
+          const data = await Client.findByPk(req.params.id)
+          
+          if(data){
+            
+              await data.destroy({where:{
+                  id:data.id
+              }})
+              .then(function(){
+                  return res.status(200).json({message:"user deleted with sucess"});
+              })
+              .catch((err)=>{
+                  return res.status(400).json({message:"don't possible delete datas"});
+              })
+          }
+          else{
+              return res.status(400).json({message:"user not found"});
+          }
+        
+        }
+        catch(err){
+            return res.status(500).json({message:"don't connect with database"})
         }
     }
 }

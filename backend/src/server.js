@@ -1,6 +1,4 @@
-const express = require("express");
 
-const server = express();
-server.use(express.json());
+const server = require('./routes');
 
-module.exports = server;
+server.listen(8081,()=>{console.log("runnig in port 8081")});
