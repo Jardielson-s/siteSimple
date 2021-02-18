@@ -1,6 +1,8 @@
 const server = require('./server');
 
 
-server.get("/",(req,res)=>{
-    res.status(200).send("hello dev");
-});
+const   controllers  = require('./Controllers/Controllers');
+
+server.post('/singUp',controllers.singUp);
+
+server.listen(8081,()=>console.log("running port 8081"));
