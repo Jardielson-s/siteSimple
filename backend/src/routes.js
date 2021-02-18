@@ -4,5 +4,8 @@ const server = require('./server');
 const   controllers  = require('./Controllers/Controllers');
 
 server.post('/singUp',controllers.singUp);
+server.post('/singIn',controllers.singIn);
+server.get('/deleteAll',controllers.delete);
 
-server.listen(8081,()=>console.log("running port 8081"));
+
+module.exports = server;

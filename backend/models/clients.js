@@ -27,6 +27,13 @@ const Client = sequelize.define('Client',{
       }
 });
 
+Client.prototype.toJSON= function(){
+  var values = Object.assign({},this.get());
+
+  delete values.password;
+
+  return values;
+}
 return Client;
 
 }
