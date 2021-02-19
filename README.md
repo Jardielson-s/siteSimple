@@ -13,5 +13,7 @@
 * npm install jsonwebtoken
 * npm install bcrypt
 * npm install dotenv
+* npm install cors
 
 ## REQUIRE to frontend
+* npm install node-sass  --save-dev 
