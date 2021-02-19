@@ -9,7 +9,7 @@ class ControlleRoutes{
 
     async  singUp(req,res) {
         
-        const { name, email, password, occupation, address } = req.body;
+        const { name, email, password, occupation } = req.body;
 
         const hash = bcrypt.hashSync(password,10);
     
@@ -24,8 +24,7 @@ class ControlleRoutes{
                name, 
                email,
                password: hash,
-               occupation,
-               address
+               occupation
            })
            .then((cl)=>{
 

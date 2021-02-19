@@ -14,8 +14,7 @@ test('test to create client', async()=>{
         name: "son goku", 
         email:"ozaroo@gmail.com",
         password: "lutar12345",
-        occupation: "guerreiro Z",
-        address: "japão"
+        occupation: "guerreiro Z"
     })
 });
 

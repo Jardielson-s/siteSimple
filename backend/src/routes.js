@@ -1,9 +1,11 @@
 const express = require("express");
 const { authenticate } = require("./Controllers/Auth");
 const Auth = require('./Controllers/Auth');
+const cors = require('cors');
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 const  controllers  = require('./Controllers/Controllers');
 

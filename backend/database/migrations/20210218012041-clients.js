@@ -31,10 +31,6 @@ module.exports = {
       occupation: {
         type: Sequelize.STRING,
       },
-      address: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
