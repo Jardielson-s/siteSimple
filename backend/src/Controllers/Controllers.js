@@ -97,19 +97,20 @@ class ControlleRoutes{
         }
     }
 
-    async get(req,res){
+    async sarch(req,res){
 
         const { name } = req.query;
       
         try{
+            
           const foundName = await Client.findAll({where:{
               [Op.or]:[{ name }]
           }})
           .then(function(foundName){
-             if(!foundName)
+             if(foundName[0] === undefined)
                 return res.status(400).json({message:'user not found'});
             
-             return res.status(200).json(foundName);
+             return res.status(200).json({ foundName });
           })
           .catch((err)=>{
               return res.status(400).json(err);
