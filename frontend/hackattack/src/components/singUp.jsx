@@ -1,11 +1,13 @@
 import React from 'react';
 import image1 from '../image1.jpg';
+import api from '../api';
 
 export  class Register extends React.Component{
 
     constructor(props){
         super(props)
     }
+
 
     render(){
         return(
