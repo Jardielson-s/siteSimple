@@ -17,3 +17,6 @@
 
 ## REQUIRE to frontend
 * npm install node-sass  --save-dev 
+* npm install axios
+* npm install react-router --save
+* npm install react-router-dom

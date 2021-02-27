@@ -11,9 +11,10 @@ const  controllers  = require('./Controllers/Controllers');
 
 server.post('/singUp',controllers.singUp);
 server.post('/singIn',controllers.singIn);
-server.get('/deleteAll',Auth.authenticate,controllers.delete);
-server.get('/get',controllers.get);
-server.get('/destroy/:id',Auth.authenticate,controllers.destroy);
+server.delete('/deleteAll',Auth.authenticate,controllers.delete);
+server.get('/get',Auth.authenticate,controllers.get);
+server.delete('/destroy/:id',Auth.authenticate,controllers.destroy);
+server.delete('/delete/:id',controllers.delete);
 server.get('/sarch',Auth.authenticate,controllers.sarch);
 
 module.exports = server;

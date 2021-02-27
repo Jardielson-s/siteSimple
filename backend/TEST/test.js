@@ -47,6 +47,6 @@ test('test to the routes authenticate',async()=>{
     .set("x-access-token",`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXJhbXMiOjIsImlhdCI6MTYxMzc0NjU4OSwiZXhwIjoxNjEzODMzMDg5fQ.yxFxXLh-bIBgTNvnHg7Nj-jIJOxd6z0suYRJlKs4TV8`)
     .query({name:'son goku'})
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(500);//expect 500 case the token expire
 
 })

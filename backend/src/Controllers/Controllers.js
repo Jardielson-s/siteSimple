@@ -10,6 +10,7 @@ class ControlleRoutes{
     async  singUp(req,res) {
         
         const { name, email, password, occupation } = req.body;
+        console.log(name,email,password,occupation)
 
         const hash = bcrypt.hashSync(password,10);
     
@@ -45,12 +46,12 @@ class ControlleRoutes{
           try{
             const clientEmail = await Client.findOne({where:{email}});
             
-            if(!clientEmail) return res.status(404).json({message:"email invalid"});
+            if(!clientEmail) return res.status(404).send({message:"email invalid"});
 
             const passCompare = bcrypt.compareSync(password,clientEmail.password);
         
             if(passCompare === false)
-               return res.status(404).json({message:"password invalid"});
+               return res.status(404).send({message:"password invalid"});
             
     
            const token = CreateToken.create_token(clientEmail.id);
@@ -61,24 +62,13 @@ class ControlleRoutes{
     }
 
     async get(req,res){
-
-        const { email, password} = req.body;
-
     
           
           try{
-            const clientEmail = await Client.findOne({where:{email}});
+            const clients = await Client.findAll();
             
-            if(!clientEmail) return res.status(404).json({message:"email invalid"});
-
-            const passCompare = bcrypt.compareSync(password,clientEmail.password);
         
-            if(passCompare === false)
-               return res.status(404).json({message:"password invalid"});
-            
-    
-           const token = CreateToken.create_token(clientEmail.id);
-            return res.status(200).json({clientEmail, token});
+            return res.status(200).send( clients );
           }catch(err){
               return res.status(500).json({message: "indisponible service"});
           }
@@ -145,6 +135,32 @@ class ControlleRoutes{
         catch(err){
             return res.status(500).json({message:"don't connect with database"})
         }
+    }
+
+    async delete(req,res){
+        try{
+            const data = await Client.findByPk(req.params.id)
+            
+            if(data){
+              
+                await data.destroy({where:{
+                    id:data.id
+                }})
+                .then(function(){
+                    return res.status(200).json({message:"user deleted with sucess"});
+                })
+                .catch((err)=>{
+                    return res.status(400).json({message:"don't possible delete datas"});
+                })
+            }
+            else{
+                return res.status(400).json({message:"user not found"});
+            }
+          
+          }
+          catch(err){
+              return res.status(500).json({message:"don't connect with database"})
+          }
     }
 }
 

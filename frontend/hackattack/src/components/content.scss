@@ -26,3 +26,22 @@ h2{
     padding: 2px;
     color: violet;
 }
+.bnt-delete{
+    height: 35px;
+    font-size: 21px;
+    margin-top: 0em;
+    padding: 5px 20px;
+    margin-left: 30px;
+    border: 0;
+    background-color: violet;
+    color: black;
+    border-radius: 3px;
+    transition:  all 250ms ease-in-out;
+    cursor: pointer;
+    &:hover{
+        background-color: purple;
+    }
+    &:focus{
+       outline: none;
+    }
+}
