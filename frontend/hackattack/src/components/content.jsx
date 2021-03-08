@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './content.scss';
 import api from '../api';
+import { Alert } from 'reactstrap';
+
 
 
 class Content extends React.Component{
@@ -44,13 +46,7 @@ class Content extends React.Component{
 
          const response = await api.delete(`/delete/${id}`)
         .then(response =>{
-            this.setState({ responseDelete: true});
-            new Promise(()=>{
-                <div className="div-deleted">
-                    <h2 className="h2-deleted"> client deleted with success </h2>
-                </div>
-            })
-           
+           alert( response.data.message );
            document.location.reload(true);
         })
         .catch(err => { alert(err);});
