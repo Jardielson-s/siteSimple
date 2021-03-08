@@ -14,17 +14,18 @@ li{
 }
 .data{
     display: inline;
-    flex: 1;
+   
 }
 .list-datas{
     margin-bottom: 1rem;
-    padding: 10px;
-    height: 13rem;
-    width: 24rem;
+    height: 15rem;
+    width: 26rem;
+    align-items: center;
 }
 
 .list-datas h2{
     display: flex;
+    margin-left: 2rem;
 }
 
 h2{
