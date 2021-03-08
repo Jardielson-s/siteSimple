@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './content.scss';
 import api from '../api';
 
@@ -11,12 +11,12 @@ class Content extends React.Component{
 
         this.state={
             clients: [],
-            redirectTo: null
+            redirectTo: null,
+            responseDelete: false
         }
         this.handleClick = this.handleClick.bind(this);
       
     }
-    
     
 
     handleClick(){
@@ -37,13 +37,20 @@ class Content extends React.Component{
     
     }
 
+
       
     async handleSubmit(e,id){
          e.preventDefault();
 
          const response = await api.delete(`/delete/${id}`)
         .then(response =>{
-           alert(response.data.message);
+            this.setState({ responseDelete: true});
+            new Promise(()=>{
+                <div className="div-deleted">
+                    <h2 className="h2-deleted"> client deleted with success </h2>
+                </div>
+            })
+           
            document.location.reload(true);
         })
         .catch(err => { alert(err);});

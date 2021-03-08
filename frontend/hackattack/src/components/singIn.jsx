@@ -35,7 +35,6 @@ export  class Login extends React.Component{
             email: this.state.email,
             password: this.state.password
         }).then(response=>{
-            console.log(response.data.response)
             localStorage.setItem('token',response.data.token);
             this.setState({redirectTo: "/listClients"})
         })

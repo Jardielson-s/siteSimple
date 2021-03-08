@@ -17,9 +17,16 @@ li{
     flex: 1;
 }
 .list-datas{
-    
+    margin-bottom: 1rem;
     padding: 10px;
+    height: 13rem;
+    width: 24rem;
 }
+
+.list-datas h2{
+    display: flex;
+}
+
 h2{
     display: inline-block;
     font-family: Arial, Helvetica, sans-serif;
@@ -44,4 +51,15 @@ h2{
     &:focus{
        outline: none;
     }
+}
+
+.div-deleted{
+    width: 50rem;
+    height: 90rem;
+    background-color: aquamarine;
+}
+h2-deleted{
+    color: black;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
 }

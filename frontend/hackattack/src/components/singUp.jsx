@@ -47,7 +47,7 @@ export  class Register extends React.Component{
             password: this.state.password,
             occupation: this.state.occupation})
         .then(response =>{
-            localStorage.setItem(response.data.token);
+            localStorage.setItem('token',response.data.token);
             this.setState({redirectTo: "/listClients"})
         }).catch(err=>{
             console.log(err);

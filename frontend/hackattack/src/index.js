@@ -18,21 +18,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-/*
-
-<BrowserRouter>
-   <Switch>
-     <Route path="/" exact={true} component={App} />
-     <PrivateRoute path="/listClients" component={Content} />
-     <Route path="*" component={NotFound} />
-   </Switch>
-  </BrowserRouter>
-  <BrowserRouter>
-   <Switch>
-     <Route path="/" exact={true} component={App} />
-     <Route path="/listClients" component={Content} />
-     <Route path="*" component={NotFound} />
-   </Switch>
-  </BrowserRouter>
-   */
