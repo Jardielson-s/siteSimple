@@ -162,6 +162,11 @@ class ControlleRoutes{
               return res.status(500).json({message:"don't connect with database"})
           }
     }
+
+    async chat(req,res){
+        
+        res.status(200).send('connect route socket');
+    }
 }
 
 
