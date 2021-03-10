@@ -1,5 +1,5 @@
 import React from 'react';
-import image1 from '../image1.jpg';
+import image1 from '../img/image1.jpg';
 import api from '../api';
 import {  Redirect } from 'react-router-dom';
 
