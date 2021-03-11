@@ -11,26 +11,26 @@ body{
     width: 100vw;
 }
 
-.form{
-    background: #434758;
+.form1{
+    background: rgb(66, 53, 53);;
     padding: 1rem;
 }
 
-.form__field:hover{
-    background: #bb1f7f;
-    color: rgb(14, 13, 13);
+.form1__field:hover{
+    background: #000;
+    color: #fff;
 }
 
-.form__field{
+.form1__field{
     border: 1px solid #dcdcdc;
     border-radius: 5px;
-    color: #333;
+    color: #fff;
     font-size: 1.2rem;
     padding: .5rem 1rem;
     width: 100%;
 }
 
-.form__field:focus{
+.form1__field:focus{
     border-color: #a3f7ff;
     box-shadow: 0 0 7px #a3f7ff;
     outline: none;

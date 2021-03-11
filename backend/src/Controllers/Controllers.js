@@ -1,9 +1,14 @@
+require('events').EventEmitter.prototype._maxListeners = 100;
 const  { Client }  = require('../../models');
 require('dotenv').config();
-
+const server = require('../routes');
 const bcrypt = require('bcrypt');
 const CreateToken = require('./Jwt');
 const { Op } = require('sequelize');
+const socket = require('socket.io');
+const http = require('http').createServer(server); 
+const io = socket(http);
+
 
 class ControlleRoutes{
 
@@ -163,9 +168,17 @@ class ControlleRoutes{
           }
     }
 
-    async chat(req,res){
-        
-        res.status(200).send('connect route socket');
+ chat(req,res){
+        io.on('connection',(socket)=>{
+            socket.on('chat.message',(data)=>{
+                console.log('[SOCKE] chat.message => ', data);
+                io.emit('chat.message',data);
+            })
+            socket.on('disconnect',()=>{
+                console.log('[SOCKT] disconnect');
+            });
+        })
+        return res.status(200).send(`[IO] Connection => server has new connection [  ]`)
     }
 }
 
